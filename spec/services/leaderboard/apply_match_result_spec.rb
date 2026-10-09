@@ -53,4 +53,14 @@ RSpec.describe Leaderboard::ApplyMatchResult, type: :service do
       expect { apply_result }.not_to change { [ player_one.reload.current_rank, player_two.reload.current_rank ] }
     end
   end
+
+  context "when a match is played" do
+    let(:result) { "draw" }
+
+    it "increments both players' games played" do
+      expect { apply_result }
+        .to change  { player_one.reload.club_games_played }.by(1)
+        .and change { player_two.reload.club_games_played }.by(1)
+    end
+  end
 end

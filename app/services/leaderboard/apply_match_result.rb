@@ -19,6 +19,8 @@ module Leaderboard
       else
         raise ArgumentError, "Invalid result: #{result}"
       end
+
+      increment_games_played!
     end
 
     private
@@ -52,6 +54,11 @@ module Leaderboard
 
     def loser
       @_loser ||= result == "player_one" ? player_two : player_one
+    end
+
+    def increment_games_played!
+      player_one.increment!(:club_games_played)
+      player_two.increment!(:club_games_played)
     end
   end
 end
