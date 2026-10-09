@@ -1,10 +1,41 @@
-<p style="color: green"><%= notice %></p>
+<% content_for :title, @member.full_name %>
 
-<%= render @member %>
+<h1>Member</h1>
+
+<article>
+  <h2><%= @member.full_name %></h2>
+  <p><%= mail_to @member.email_address %></p>
+
+  <table>
+    <tbody>
+      <tr>
+        <th scope="row">Current rank</th>
+        <td><mark>#<%= @member.current_rank %></mark></td>
+      </tr>
+      <tr>
+        <th scope="row">Birthday</th>
+        <td><%= @member.birthday.to_fs(:long) %></td>
+      </tr>
+      <tr>
+        <th scope="row">Club games played</th>
+        <td><%= @member.club_games_played %></td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+
+<br>
 
 <div>
   <%= link_to "Edit this member", edit_member_path(@member) %> |
   <%= link_to "Back to members", members_path %>
 
-  <%= button_to "Destroy this member", @member, method: :delete %>
+    <%= link_to "Destroy this member",
+            @member,
+            class: "button",
+            data: {
+              turbo_method: :delete,
+              turbo_confirm: "Delete #{@member.full_name}?"
+            } %>
 </div>

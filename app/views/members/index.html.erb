@@ -1,16 +1,38 @@
-<p style="color: green"><%= notice %></p>
-
 <% content_for :title, "Members" %>
 
 <h1>Members</h1>
 
-<div id="members">
-  <% @members.each do |member| %>
-    <%= render member %>
-    <p>
-      <%= link_to "Show this member", member %>
-    </p>
-  <% end %>
-</div>
-
 <%= link_to "New member", new_member_path %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Rank</th>
+      <th>Full Name</th>
+      <th>Email Address</th>
+      <th>Birthday</th>
+      <th>Club Games Played</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @members.each do |member| %>
+      <tr>
+        <td><mark>#<%= member.current_rank %></mark></td>
+        <td><%= link_to member.full_name, member %></td>
+        <td><%= member.email_address %></td>
+        <td><%= member.birthday %></td>
+        <td><%= member.club_games_played %></td>
+        <td>
+          <%= link_to "Edit", edit_member_path(member) %>
+          <%= link_to "Destroy",
+                      member,
+                      data: {
+                        turbo_method: :delete,
+                        turbo_confirm: "Delete #{member.full_name}?"
+                      } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
