@@ -1,9 +1,9 @@
 import { Controller } from "@hotwired/stimulus"
 
 // Keeps the player 1 / player 2 selects mutually exclusive and limits the
-// winner select to the two selected players.
+// result select to the two selected players or a draw.
 export default class extends Controller {
-  static targets = ["playerOne", "playerTwo", "winner"]
+  static targets = ["playerOne", "playerTwo", "result"]
 
   connect() {
     this.update()
@@ -12,7 +12,7 @@ export default class extends Controller {
   update() {
     this.excludeSelection(this.playerOneTarget, this.playerTwoTarget)
     this.excludeSelection(this.playerTwoTarget, this.playerOneTarget)
-    this.updateWinnerOptions()
+    this.updateResultOptions()
   }
 
   excludeSelection(sourceSelect, targetSelect) {
@@ -25,27 +25,31 @@ export default class extends Controller {
     }
   }
 
-  updateWinnerOptions() {
-    const players = [this.playerOneTarget, this.playerTwoTarget]
-      .filter((select) => select.value !== "")
-      .map((select) => ({
-        value: select.value,
-        label: select.options[select.selectedIndex].text
+  updateResultOptions() {
+    const players = [
+      { element: this.playerOneTarget, value: "player_one" },
+      { element: this.playerTwoTarget, value: "player_two" }
+    ]
+      .filter(({ element }) => element.value !== "")
+      .map(({ element, value }) => ({
+        value,
+        label: element.options[element.selectedIndex].text
       }))
 
-    const winner = this.winnerTarget
-    winner.innerHTML = ""
+    const result = this.resultTarget
+    result.innerHTML = ""
 
     if (players.length < 2) {
-      winner.append(new Option("Select both players first", ""))
-      winner.disabled = true
+      result.append(new Option("Select both players first", ""))
+      result.disabled = true
       return
     }
 
-    winner.disabled = false
-    winner.append(new Option("Select winner", ""))
+    result.disabled = false
+    result.append(new Option("Select result", ""))
     for (const player of players) {
-      winner.append(new Option(player.label, player.value))
+      result.append(new Option(player.label, player.value))
     }
+    result.append(new Option("Draw", "draw"))
   }
 }

@@ -19,11 +19,11 @@
     </div>
 
     <div>
-      <%= form.label :winner_id, "Winner" %>
-      <%= form.select :winner_id, [],
+      <%= form.label :result, "Result" %>
+      <%= form.select :result, [],
             { prompt: "Select both players first" },
-            { required: true, disabled: true, data: { match_form_target: "winner" } } %>
-      <p><small>The winner must be one of the two selected players.</small></p>
+        { required: true, disabled: true, data: { match_form_target: "result" } } %>
+      <p><small>The result must be one of the two selected players or a draw.</small></p>
     </div>
 
     <%= form.submit "Submit match" %>
