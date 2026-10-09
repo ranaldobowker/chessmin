@@ -11,6 +11,26 @@ class Member < ApplicationRecord
     "#{name} #{surname}"
   end
 
+  def ranked_higher?(other_member)
+    current_rank < other_member.current_rank
+  end
+
+  def ranked_lower?(other_member)
+    current_rank > other_member.current_rank
+  end
+
+  def adjacent?(other_member)
+    (current_rank - other_member.current_rank).abs == 1
+  end
+
+  def gain_rank!(gain = 1)
+    update!(current_rank: current_rank - gain)
+  end
+
+  def lose_rank!(loss = 1)
+    update!(current_rank: current_rank + loss)
+  end
+
   private
 
   def set_current_rank

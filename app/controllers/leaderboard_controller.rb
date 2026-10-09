@@ -10,6 +10,12 @@ class LeaderboardController < ApplicationController
   end
 
   def submit_match
+    ::Leaderboard::ApplyMatchResult.new(
+      player_one: Member.find(params[:player_one_id]),
+      player_two: Member.find(params[:player_two_id]),
+      result:     params[:result]
+    ).call
+
     redirect_to leaderboard_index_path, notice: "Match submitted."
   end
 
