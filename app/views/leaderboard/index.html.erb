@@ -1,0 +1,30 @@
+<% content_for :title, "Leaderboard" %>
+
+<h1>Leaderboard</h1>
+
+<%= link_to "Enter match", leaderboard_enter_match_path %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Rank</th>
+      <th>Name</th>
+      <th>Surname</th>
+      <th>Email Address</th>
+      <th>Birthday</th>
+      <th>Club Games Played</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @members.each do |member| %>
+      <tr>
+        <td><mark>#<%= member.current_rank %></mark></td>
+        <td><%= member.name %></td>
+        <td><%= member.surname %></td>
+        <td><%= member.email_address %></td>
+        <td><%= member.birthday %></td>
+        <td><%= member.club_games_played %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

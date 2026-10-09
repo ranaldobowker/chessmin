@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get  "leaderboard/index"
+  get  "leaderboard/enter_match"
+  post "leaderboard/submit_match"
+
   resources :members
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -11,5 +15,5 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   # Defines the root path route ("/")
-  # root "posts#index"
+  root "leaderboard#index"
 end

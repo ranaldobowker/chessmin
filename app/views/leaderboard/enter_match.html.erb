@@ -1,0 +1,33 @@
+<% content_for :title, "Enter Match" %>
+
+<h1>Enter Match</h1>
+
+<%= form_with url: leaderboard_submit_match_path, method: :post, data: { controller: "match-form" } do |form| %>
+  <fieldset>
+    <div>
+      <%= form.label :player_one_id, "Player 1" %>
+      <%= form.collection_select :player_one_id, @members, :id, :full_name,
+            { prompt: "Select player 1" },
+            { required: true, data: { match_form_target: "playerOne", action: "match-form#update" } } %>
+    </div>
+
+    <div>
+      <%= form.label :player_two_id, "Player 2" %>
+      <%= form.collection_select :player_two_id, @members, :id, :full_name,
+            { prompt: "Select player 2" },
+            { required: true, data: { match_form_target: "playerTwo", action: "match-form#update" } } %>
+    </div>
+
+    <div>
+      <%= form.label :winner_id, "Winner" %>
+      <%= form.select :winner_id, [],
+            { prompt: "Select both players first" },
+            { required: true, disabled: true, data: { match_form_target: "winner" } } %>
+      <p><small>The winner must be one of the two selected players.</small></p>
+    </div>
+
+    <%= form.submit "Submit match" %>
+  </fieldset>
+<% end %>
+
+<%= link_to "Back to leaderboard", leaderboard_index_path %>

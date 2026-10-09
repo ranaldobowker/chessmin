@@ -27,7 +27,8 @@
   <body>
     <header>
       <nav>
-        <%= link_to "Members", members_path, aria: { current: ("page" if @nav == :members) } %>
+        <%= link_to "Leaderboard", root_path, aria: { current: ("page" if @nav == :leaderboard) } %>
+        <%= link_to "Members",     members_path, aria: { current: ("page" if @nav == :members) } %>
       </nav>
     </header>
 
