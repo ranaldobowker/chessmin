@@ -20,10 +20,17 @@
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "https://cdn.simplecss.org/simple.min.css" %>
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
+    <header>
+      <nav>
+        <%= link_to "Members", members_path, aria: { current: ("page" if @nav == :members) } %>
+      </nav>
+    </header>
+
     <%= yield %>
   </body>
 </html>

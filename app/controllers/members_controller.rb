@@ -1,5 +1,6 @@
 class MembersController < ApplicationController
-  before_action :set_member, only: %i[ show edit update destroy ]
+  before_action :set_member,     only: %i[ show edit update destroy ]
+  before_action :set_active_nav, only: %i[ index show new edit ]
 
   # GET /members or /members.json
   def index
@@ -58,13 +59,18 @@ class MembersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_member
-      @member = Member.find(params.expect(:id))
-    end
 
-    # Only allow a list of trusted parameters through.
-    def member_params
-      params.expect(member: [ :name, :surname, :email_address, :birthday, :club_games_played ])
-    end
+  def set_active_nav
+    @nav = :members
+  end
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_member
+    @member = Member.find(params.expect(:id))
+  end
+
+  # Only allow a list of trusted parameters through.
+  def member_params
+    params.expect(member: [ :name, :surname, :email_address, :birthday, :club_games_played ])
+  end
 end
