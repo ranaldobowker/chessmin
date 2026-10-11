@@ -36,6 +36,10 @@
       <p class="notice" style="color: green"><%= notice %></p>
     <% end %>
 
+    <% if alert.present? %>
+      <p class="notice" style="color: red"><%= alert %></p>
+    <% end %>
+
     <%= yield %>
   </body>
 </html>
