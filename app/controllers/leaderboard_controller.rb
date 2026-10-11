@@ -10,11 +10,12 @@ class LeaderboardController < ApplicationController
   end
 
   def submit_match
-    ::Leaderboard::ApplyMatchResult.new(
-      player_one: Member.find(params[:player_one_id]),
-      player_two: Member.find(params[:player_two_id]),
-      result:     params[:result]
-    ).call
+    result = ::Leaderboard::RecordMatch.call(**match_params)
+
+    unless result.success?
+      redirect_to leaderboard_enter_match_path, alert: result.message
+      return
+    end
 
     redirect_to leaderboard_index_path, notice: "Match submitted."
   end
@@ -23,5 +24,9 @@ class LeaderboardController < ApplicationController
 
   def set_active_nav
     @nav = :leaderboard
+  end
+
+  def match_params
+    params.permit(:player_one_id, :player_two_id, :result).to_h.symbolize_keys
   end
 end
