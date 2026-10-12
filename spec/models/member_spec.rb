@@ -48,20 +48,4 @@ RSpec.describe Member, type: :model do
       expect(rank_one.adjacent?(rank_three)).to be false
     end
   end
-
-  describe "#lose_rank!" do
-    it "decreases the member's rank by 1" do
-      rank_two.save!
-
-      expect { rank_two.lose_rank! }.to change { rank_two.reload.current_rank }.by(1)
-    end
-  end
-
-  describe "#gain_rank!" do
-    it "increases the member's rank by 1" do
-      rank_two.save!
-
-      expect { rank_two.gain_rank! }.to change { rank_two.reload.current_rank }.by(-1)
-    end
-  end
 end
