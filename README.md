@@ -1,24 +1,48 @@
-# README
+# Chessmin
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Installation
 
-Things you may want to cover:
+### Prerequisites
 
-* Ruby version
+- Ruby `4.0.7` (see `.ruby-version`)
+- Bundler
+- SQLite 3.8.0 or newer
 
-* System dependencies
+Install Ruby with a version manager such as `mise`, `asdf`, or `rbenv`, then
+install Bundler if it is not already available:
 
-* Configuration
+```sh
+gem install bundler
+```
 
-* Database creation
+### Setup
 
-* Database initialization
+Clone the repository and run the setup script:
 
-* How to run the test suite
+```sh
+git clone <repository-url>
+cd chessmin
+bin/setup --skip-server
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+`bin/setup` installs the Ruby dependencies and prepares the development and
+test databases. Use `bin/setup --reset --skip-server` to recreate the local
+databases from scratch.
 
-* Deployment instructions
+## Running the application
 
-* ...
+Start the development server with:
+
+```sh
+bin/dev
+```
+
+The application is available at <http://localhost:3000>.
+
+## Running tests
+
+Run the RSpec suite with:
+
+```sh
+bundle exec rspec
+```
