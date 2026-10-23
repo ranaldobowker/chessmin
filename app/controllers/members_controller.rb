@@ -52,6 +52,9 @@ class MembersController < ApplicationController
   def destroy
     @member.destroy!
 
+    # re-rank the remaining members after a member is destroyed
+    Member.where("current_rank > ?", @member.current_rank).update_all("current_rank = current_rank - 1")
+
     respond_to do |format|
       format.html { redirect_to members_path, notice: "Member was successfully destroyed.", status: :see_other }
       format.json { head :no_content }
